@@ -41,10 +41,7 @@ while k < len(Picture) - 1:
     elif exif[orientation] == 8:
         Photo = Photo.rotate(90, expand=True)
         R = True
-
-    width = Photo.width
-    height = Photo.height
-    print(width, height, Photo.size)
+    print(Picture[k])
 
     Photo = Photo.resize(
         (int(Photo.width*0.25), int(Photo.height*0.25)), Image.ANTIALIAS)
