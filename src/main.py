@@ -24,6 +24,8 @@ Picture = os.listdir(path)
 k = -1
 while k < len(Picture) - 1:
     k += 1
+    if Picture[k] == '.gitkeep':
+        continue
     Photo = Image.open(path + Picture[k])
 
     R = False
