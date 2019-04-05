@@ -7,14 +7,17 @@ import os
 cwspath = os.getcwd()
 
 src_path = cwspath + '\\src\\'
-camera = Image.open(src_path+"Camera.jpg").convert('RGB')
+camera = Image.open(src_path + "Camera.jpg").convert('RGB')
 camera = camera.resize((int(camera.width*0.3), int(camera.height*0.3)), Image.ANTIALIAS)
 camera = np.array(camera)
 camera[:, :, 2][camera[:, :, 2] >= 30] -= 30
 
-flag = Image.open(src_path+"Denmark.jpg").convert('RGB')
+flag = Image.open(src_path + "Denmark.jpg").convert('RGB')
 flag = flag.resize((int(flag.width*0.085), int(flag.height*0.085)), Image.ANTIALIAS)
 flag = np.array(flag)
+
+logo = Image.open(src_path + "logo.jpg").convert('RGB')
+logo = np.array(logo)
 
 path = cwspath + '\\origin\\'
 Picture = os.listdir(path)
@@ -48,13 +51,15 @@ while k < len(Picture) - 1:
         new_bg = 255 * np.ones([630+70, 944, 3], dtype=np.uint8)
         new_bg[:, :, 2][new_bg[:, :, 2] >= 30] -= 30
         new_bg[0:630, 0:944] = Photo_arr
-        new_bg[640: 692-1, 21: 90-1] = flag  # 54 81
+        new_bg[640: 692-1, 21: 90-1] = flag
+        new_bg[635: 699-1, 110:361-1] = logo
         new_bg[634: 696-1, 859: 940-1] = camera
     else:
         new_bg = 255 * np.ones([944+70, 630, 3], dtype=np.uint8)
         new_bg[:, :, 2][new_bg[:, :, 2] >= 30] -= 30
         new_bg[0:944, 0:630] = Photo_arr
         new_bg[954:1006-1, 21:90-1] = flag
+        new_bg[949:1013-1, 110:361-1] = logo
         new_bg[950:1012-1, 534:615-1] = camera
     im = Image.fromarray(new_bg)
     im.save(cwspath + '\\bs_pic\\' + Picture[k], quality=95)

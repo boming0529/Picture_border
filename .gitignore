@@ -2,5 +2,5 @@
 /.vscode
 /env
 /matlab_code
-/origin
-/bs_pic
+/origin/*.jpg
+/bs_pic/*.jpg
