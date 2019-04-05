@@ -1,4 +1,6 @@
 *.py[cod]
 /.vscode
 /env
-
+/matlab_code
+/origin
+/bs_pic
