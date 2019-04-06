@@ -25,10 +25,10 @@ camera = Pictures(camera).imresize(0.3)
 camera = np.array(camera)
 camera[:, :, 2][camera[:, :, 2] >= 30] -= 30
 
-flag = Image.open(src_path + "China.png").convert('RGB')
+flag = Image.open(src_path + "Norway.png").convert('RGB')
 flag = Pictures(flag).imresize(0.09)
 
-logo = Image.open(src_path + "china_logo.jpg").convert('RGB')
+logo = Image.open(src_path + "norway_logo.jpg").convert('RGB')
 logo = Pictures(logo).imresize(0.95)
 
 path = cwspath + '\\origin\\'
