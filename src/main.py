@@ -32,44 +32,41 @@ logo = Image.open(src_path + "china_logo.jpg").convert('RGB')
 logo = Pictures(logo).imresize(0.95)
 
 path = cwspath + '\\origin\\'
-Picture = os.listdir(path)
-k = -1
-while k < len(Picture) - 1:
-    k += 1
-    if Picture[k] == '.gitkeep':
-        continue
-    Photo = Image.open(path + Picture[k])
-    # image processing
-    R = False
-    for orientation in ExifTags.TAGS.keys():
-        if ExifTags.TAGS[orientation] == 'Orientation':
-            break
-    exif = dict(Photo._getexif().items())
-    # if exif[orientation] == 3:
-    #     Photo = Photo.rotate(180, expand=True)
-    if exif[orientation] == 6:
-        Photo = Photo.rotate(270, expand=True)
-        R = True
-    elif exif[orientation] == 8:
-        Photo = Photo.rotate(90, expand=True)
-        R = True
-    print(Picture[k])
-    
-    Photo = Pictures(Photo).imresize(0.25)
-    new_bg = 255 * \
-        np.ones([Photo.height + 70, Photo.width, 3], dtype=np.uint8)
-    new_bg[:, :, 2][new_bg[:, :, 2] >= 30] -= 30
-    im = Image.fromarray(new_bg)
 
-    if not R:
-        im.paste(Photo, (0, 0))
-        im.paste(flag, (21, 640))
-        im.paste(logo, (110, 635))
-        im.paste(Image.fromarray(camera), (859, 634))
-    else:
-        im.paste(Photo, (0, 0))
-        im.paste(flag, (21, 954))
-        im.paste(logo, (110, 949))
-        im.paste(Image.fromarray(camera), (534, 950))
-    # save
-    im.save(cwspath + '\\bs_pic\\' + Picture[k], quality=95)
+for item in os.listdir(path):
+    if os.path.isfile(path + item) and item != '.gitkeep':
+        Photo = Image.open(path + item)
+        # image processing
+        R = False
+        for orientation in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orientation] == 'Orientation':
+                break
+        exif = dict(Photo._getexif().items())
+        # if exif[orientation] == 3:
+        #     Photo = Photo.rotate(180, expand=True)
+        if exif[orientation] == 6:
+            Photo = Photo.rotate(270, expand=True)
+            R = True
+        elif exif[orientation] == 8:
+            Photo = Photo.rotate(90, expand=True)
+            R = True
+        print(item)
+        
+        Photo = Pictures(Photo).imresize(0.25)
+        new_bg = 255 * \
+            np.ones([Photo.height + 70, Photo.width, 3], dtype=np.uint8)
+        new_bg[:, :, 2][new_bg[:, :, 2] >= 30] -= 30
+        im = Image.fromarray(new_bg)
+
+        if not R:
+            im.paste(Photo, (0, 0))
+            im.paste(flag, (21, 640))
+            im.paste(logo, (110, 635))
+            im.paste(Image.fromarray(camera), (859, 634))
+        else:
+            im.paste(Photo, (0, 0))
+            im.paste(flag, (21, 954))
+            im.paste(logo, (110, 949))
+            im.paste(Image.fromarray(camera), (534, 950))
+        # save
+        im.save(cwspath + '\\bs_pic\\' + item, quality=95)
