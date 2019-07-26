@@ -25,10 +25,10 @@ camera = Pictures(camera).imresize(0.3)
 camera = np.array(camera)
 camera[:, :, 2][camera[:, :, 2] >= 30] -= 30
 
-flag = Image.open(src_path + "Norway.png").convert('RGB')
-flag = Pictures(flag).imresize(0.09)
+flag = Image.open(src_path + "Finland.png").convert('RGB')
+flag = Pictures(flag).imresize(0.58)
 
-logo = Image.open(src_path + "norway_logo.jpg").convert('RGB')
+logo = Image.open(src_path + "finland_logo.jpg").convert('RGB')
 logo = Pictures(logo).imresize(0.95)
 
 path = cwspath + '\\origin\\'
@@ -60,13 +60,13 @@ for item in os.listdir(path):
 
         if not R:
             im.paste(Photo, (0, 0))
-            im.paste(flag, (21, 640))
-            im.paste(logo, (110, 635))
+            im.paste(flag, (21, 638))
+            im.paste(logo, (110, 640))
             im.paste(Image.fromarray(camera), (859, 634))
         else:
             im.paste(Photo, (0, 0))
-            im.paste(flag, (21, 954))
-            im.paste(logo, (110, 949))
+            im.paste(flag, (21, 952))
+            im.paste(logo, (110, 959))
             im.paste(Image.fromarray(camera), (534, 950))
         # save
         im.save(cwspath + '\\bs_pic\\' + item, quality=95)
