@@ -18,24 +18,26 @@ class Pictures(object):
 
 # Read flag, camera and logo picture and get current workspace path
 cwspath = os.getcwd()
-src_path = cwspath + '\\src\\'
+src_path = os.path.join(cwspath, 'src')
 
-camera = Image.open(src_path + "Camera.jpg").convert('RGB')
+camera = Image.open(os.path.join(src_path, 'Camera.jpg')).convert('RGB')
 camera = Pictures(camera).imresize(0.3)
 camera = np.array(camera)
 camera[:, :, 2][camera[:, :, 2] >= 30] -= 30
 
-flag = Image.open(src_path + "Finland.png").convert('RGB')
-flag = Pictures(flag).imresize(0.58)
+flag = Image.open(os.path.join(src_path, 'Hualien.png')).convert('RGB')
+flag = Pictures(flag).imresize(0.3)
+# 80 x 92
 
-logo = Image.open(src_path + "finland_logo.jpg").convert('RGB')
-logo = Pictures(logo).imresize(0.95)
+logo = Image.open(os.path.join(src_path, 'logo.png')).convert('RGB')
+logo = Pictures(logo).imresize(0.35)
 
-path = cwspath + '\\origin\\'
+path = os.path.join(cwspath, 'origin')
 
 for item in os.listdir(path):
-    if os.path.isfile(path + item) and item != '.gitkeep':
-        Photo = Image.open(path + item)
+    if os.path.isfile(os.path.join(path, item)) and item != '.gitkeep':
+        Photo = Image.open(os.path.join(path, item))
+
         # image processing
         R = False
         for orientation in ExifTags.TAGS.keys():
@@ -61,12 +63,12 @@ for item in os.listdir(path):
         if not R:
             im.paste(Photo, (0, 0))
             im.paste(flag, (21, 638))
-            im.paste(logo, (110, 640))
+            im.paste(logo, (90, 640))
             im.paste(Image.fromarray(camera), (859, 634))
         else:
             im.paste(Photo, (0, 0))
             im.paste(flag, (21, 952))
-            im.paste(logo, (110, 959))
+            im.paste(logo, (90, 954))
             im.paste(Image.fromarray(camera), (534, 950))
         # save
-        im.save(cwspath + '\\bs_pic\\' + item, quality=95)
+        im.save(os.path.join(cwspath, 'bs_pic', item), quality=95)
